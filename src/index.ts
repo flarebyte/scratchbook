@@ -18,6 +18,17 @@ const createScratchNote = (
   url,
 });
 
+type IdComposer = (parts: string[]) => string;
+
+const compose = (separator: string) => (parts: string[]) =>
+  parts.join(separator);
+
+const newScratchNote = (composer: IdComposer) => (
+  idParts: string[],
+  text: string,
+  url?: string
+) => createScratchNote(composer(idParts), text, url);
+
 const mergeTwoScratchBook = (a: ScratchBook, b: ScratchBook): ScratchBook => ({
   notes: [...a.notes, ...b.notes],
 });
@@ -59,6 +70,7 @@ export {
   ScratchNote,
   ScratchBook,
   createScratchNote,
+  newScratchNote,
   mergeScratchBooks,
   filterScratchBook,
   and,
@@ -70,4 +82,5 @@ export {
   withAnyPrefix,
   withAnySuffix,
   withAnyText,
+  compose,
 };
