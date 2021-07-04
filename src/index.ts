@@ -18,15 +18,12 @@ const createScratchNote = (
   url,
 });
 
-const mergeTwoScratchBook = (a: ScratchBook, b: ScratchBook): ScratchBook => {
-  return {
-    notes: [...a.notes, ...b.notes],
-  };
-};
+const mergeTwoScratchBook = (a: ScratchBook, b: ScratchBook): ScratchBook => ({
+  notes: [...a.notes, ...b.notes],
+});
 
-const mergeScratchBooks = (flatBooks: ScratchBook[]): ScratchBook => {
-  return flatBooks.reduce(mergeTwoScratchBook);
-};
+const mergeScratchBooks = (flatBooks: ScratchBook[]): ScratchBook =>
+  flatBooks.reduce(mergeTwoScratchBook);
 
 const byScratchNotePrefix = (prefix: string) => (
   flatNote: ScratchNote
