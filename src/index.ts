@@ -22,28 +22,52 @@ const mergeTwoScratchBook = (a: ScratchBook, b: ScratchBook): ScratchBook => ({
   notes: [...a.notes, ...b.notes],
 });
 
-const mergeScratchBooks = (flatBooks: ScratchBook[]): ScratchBook =>
-  flatBooks.reduce(mergeTwoScratchBook);
+const mergeScratchBooks = (scratchBooks: ScratchBook[]): ScratchBook =>
+  scratchBooks.reduce(mergeTwoScratchBook);
 
-const byScratchNotePrefix = (prefix: string) => (
-  scratchNote: ScratchNote
-): boolean => scratchNote.id.startsWith(prefix);
+type IdMatcher = (id: string) => boolean;
 
-const byScratchNoteSuffix = (suffix: string) => (
-  scratchNote: ScratchNote
-): boolean => scratchNote.id.endsWith(suffix);
+const filterScratchBook = (matcher: IdMatcher) => (
+  scratchBook: ScratchBook
+): ScratchBook => ({
+  notes: scratchBook.notes.filter(n => matcher(n.id)),
+});
 
-const byScratchNoteSuffixList = (suffixList: string[]) => (
-  scratchNote: ScratchNote
-): boolean =>
-  suffixList.map(suffix => scratchNote.id.endsWith(suffix)).some(b => b);
+const and = (matchers: IdMatcher[]) => (id: string): boolean =>
+  matchers.every(m => m(id));
+const or = (matchers: IdMatcher[]) => (id: string): boolean =>
+  matchers.some(m => m(id));
+
+const not = (matcher: IdMatcher) => (id: string): boolean => !matcher(id);
+
+const withPrefix = (prefix: string) => (id: string) => id.startsWith(prefix);
+
+const withSuffix = (suffix: string) => (id: string) => id.endsWith(suffix);
+
+const withText = (text: string) => (id: string) => id.includes(text);
+
+const withAnyPrefix = (prefixList: string[]) => (id: string) =>
+  prefixList.map(prefix => id.startsWith(prefix)).some(b => b);
+
+const withAnySuffix = (suffixList: string[]) => (id: string) =>
+  suffixList.map(suffix => id.endsWith(suffix)).some(b => b);
+
+const withAnyText = (textList: string[]) => (id: string) =>
+  textList.map(text => id.includes(text)).some(b => b);
 
 export {
   ScratchNote,
   ScratchBook,
   createScratchNote,
   mergeScratchBooks,
-  byScratchNotePrefix,
-  byScratchNoteSuffix,
-  byScratchNoteSuffixList,
+  filterScratchBook,
+  and,
+  or,
+  not,
+  withPrefix,
+  withSuffix,
+  withText,
+  withAnyPrefix,
+  withAnySuffix,
+  withAnyText,
 };
