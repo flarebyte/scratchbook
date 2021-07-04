@@ -26,17 +26,17 @@ const mergeScratchBooks = (flatBooks: ScratchBook[]): ScratchBook =>
   flatBooks.reduce(mergeTwoScratchBook);
 
 const byScratchNotePrefix = (prefix: string) => (
-  flatNote: ScratchNote
-): boolean => flatNote.id.startsWith(prefix);
+  scratchNote: ScratchNote
+): boolean => scratchNote.id.startsWith(prefix);
 
 const byScratchNoteSuffix = (suffix: string) => (
-  flatNote: ScratchNote
-): boolean => flatNote.id.endsWith(suffix);
+  scratchNote: ScratchNote
+): boolean => scratchNote.id.endsWith(suffix);
 
 const byScratchNoteSuffixList = (suffixList: string[]) => (
-  flatNote: ScratchNote
+  scratchNote: ScratchNote
 ): boolean =>
-  suffixList.map(suffix => flatNote.id.endsWith(suffix)).some(b => b);
+  suffixList.map(suffix => scratchNote.id.endsWith(suffix)).some(b => b);
 
 export {
   ScratchNote,
