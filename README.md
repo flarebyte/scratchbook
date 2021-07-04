@@ -1,2 +1,3 @@
-# scratchbook
-Annotation library in Typescript
+# Scratch Book
+
+> Annotation library in Typescript
