@@ -29,12 +29,31 @@ const newScratchNote = (composer: IdComposer) => (
   url?: string
 ) => createScratchNote(composer(idParts), text, url);
 
+const sortedById = (a: ScratchNote, b: ScratchNote): number => {
+  if (a.id === b.id) return 0;
+  if (a.id > b.id) return 1;
+  return -1;
+};
+
+const keepUniqueNote = (
+  value: ScratchNote,
+  index: number,
+  self: ScratchNote[]
+) =>
+  self.findIndex(
+    v => v.id === value.id && v.text === value.text && v.url === value.url
+  ) === index;
+
+const sortScratchBook = (scratchBook: ScratchBook) => ({
+  notes: scratchBook.notes.sort(sortedById).filter(keepUniqueNote),
+});
+
 const mergeTwoScratchBook = (a: ScratchBook, b: ScratchBook): ScratchBook => ({
-  notes: [...a.notes, ...b.notes],
+  notes: [...a.notes, ...b.notes].sort(sortedById),
 });
 
 const mergeScratchBooks = (scratchBooks: ScratchBook[]): ScratchBook =>
-  scratchBooks.reduce(mergeTwoScratchBook);
+  sortScratchBook(scratchBooks.reduce(mergeTwoScratchBook));
 
 type IdMatcher = (id: string) => boolean;
 
@@ -73,6 +92,7 @@ export {
   newScratchNote,
   mergeScratchBooks,
   filterScratchBook,
+  sortScratchBook,
   and,
   or,
   not,
