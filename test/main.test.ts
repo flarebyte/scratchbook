@@ -10,7 +10,7 @@ import {
   withText,
   withAnyPrefix,
   withAnySuffix,
-  withAnyText
+  withAnyText,
 } from '../src';
 
 const slash = compose('/');
@@ -19,7 +19,8 @@ const emptyScratchBook: ScratchBook = {
   notes: [],
 };
 
-const getTexts = (scratchBook: ScratchBook): string[] => scratchBook.notes.map( s => s.text)
+const getTexts = (scratchBook: ScratchBook): string[] =>
+  scratchBook.notes.map(s => s.text);
 
 const createDummyScratchNote = (idx: number) =>
   createScratchNote(
@@ -69,7 +70,7 @@ describe('create some scratch note with composer', () => {
       url: undefined,
       id: 'bird/predator/worldwide',
     },
-  ])('create a scratch note with $text, $url', ({ parts, text, url, id }) => {
+  ])('create a scratch note with %j', ({ parts, text, url, id }) => {
     const actual = newScratchNote(slash)(parts, text, url);
     expect(actual).toBeDefined();
     expect(actual.id).toBe(id);
@@ -130,23 +131,50 @@ describe('filter scratch book', () => {
   const sc2021_07_01 = createScratchNote('year/month/day', '2021/07/01');
   const sc2021_07_03 = createScratchNote('year/month/day', '2021/07/03');
   const sb: ScratchBook = {
-    notes: [
-      sc2021,
-      sc2021_08,
-      sc2021_07,
-      sc2021_07_01,
-      sc2021_07_03
-    ],
+    notes: [sc2021, sc2021_08, sc2021_07, sc2021_07_01, sc2021_07_03],
   };
 
-  it('filter the whole list', () => {
-    const actualPrefix = filterScratchBook(withPrefix("year/month/day"))(sb)
-    const actualSuffix = filterScratchBook(withSuffix("year/month/day"))(sb)
-    const actualText = filterScratchBook(withText("year/month/day"))(sb)
-    expect(actualPrefix.notes).toHaveLength(2);
-    expect(getTexts(actualPrefix)).toEqual(["2021/07/01", "2021/07/03"]);
-    expect(actualSuffix).toEqual(actualPrefix)
-    expect(actualText).toEqual(actualPrefix)
+  it.each([
+    {
+      f: withPrefix,
+      param: 'year/month/day',
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withSuffix,
+      param: 'year/month/day',
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withText,
+      param: 'year/month/day',
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+  ])('filter with %j', ({ f, param, texts }) => {
+    const actual = filterScratchBook(f(param))(sb);
+    expect(actual.notes).toHaveLength(texts.length);
+    expect(getTexts(actual)).toEqual(texts);
   });
 
+  it.each([
+    {
+      f: withAnyPrefix,
+      params: ['year/month/day'],
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withAnySuffix,
+      params: ['year/month/day'],
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withAnyText,
+      params: ['year/month/day'],
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+  ])('filter with %j', ({ f, params, texts }) => {
+    const actual = filterScratchBook(f(params))(sb);
+    expect(actual.notes).toHaveLength(texts.length);
+    expect(getTexts(actual)).toEqual(texts);
+  });
 });
