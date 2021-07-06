@@ -5,7 +5,12 @@ import {
   ScratchBook,
   mergeScratchBooks,
   filterScratchBook,
-  withPrefix
+  withPrefix,
+  withSuffix,
+  withText,
+  withAnyPrefix,
+  withAnySuffix,
+  withAnyText
 } from '../src';
 
 const slash = compose('/');
@@ -13,6 +18,8 @@ const slash = compose('/');
 const emptyScratchBook: ScratchBook = {
   notes: [],
 };
+
+const getTexts = (scratchBook: ScratchBook): string[] => scratchBook.notes.map( s => s.text)
 
 const createDummyScratchNote = (idx: number) =>
   createScratchNote(
@@ -117,17 +124,29 @@ describe('merge scratch books', () => {
 });
 
 describe('filter scratch book', () => {
-  const scEmpty = createScratchNote('empty', 'empty');
+  const sc2021 = createScratchNote('year', '2021');
+  const sc2021_07 = createScratchNote('year/month', '2021/07');
+  const sc2021_08 = createScratchNote('year/month', '2021/08');
+  const sc2021_07_01 = createScratchNote('year/month/day', '2021/07/01');
+  const sc2021_07_03 = createScratchNote('year/month/day', '2021/07/03');
   const sb: ScratchBook = {
     notes: [
-      scEmpty
+      sc2021,
+      sc2021_08,
+      sc2021_07,
+      sc2021_07_01,
+      sc2021_07_03
     ],
   };
 
-  it('create a simple scratch note', () => {
-    const actual = filterScratchBook(withPrefix("id"))(sb)
-    expect(actual.notes).toHaveLength(1);
-    expect(actual.notes[0]).toEqual(scEmpty);
+  it('filter the whole list', () => {
+    const actualPrefix = filterScratchBook(withPrefix("year/month/day"))(sb)
+    const actualSuffix = filterScratchBook(withSuffix("year/month/day"))(sb)
+    const actualText = filterScratchBook(withText("year/month/day"))(sb)
+    expect(actualPrefix.notes).toHaveLength(2);
+    expect(getTexts(actualPrefix)).toEqual(["2021/07/01", "2021/07/03"]);
+    expect(actualSuffix).toEqual(actualPrefix)
+    expect(actualText).toEqual(actualPrefix)
   });
 
 });
