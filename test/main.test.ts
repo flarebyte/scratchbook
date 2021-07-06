@@ -8,9 +8,11 @@ import {
   withPrefix,
   withSuffix,
   withText,
+  withExactly,
   withAnyPrefix,
   withAnySuffix,
   withAnyText,
+  withAnyExactly,
 } from '../src';
 
 const slash = compose('/');
@@ -150,6 +152,51 @@ describe('filter scratch book', () => {
       param: 'year/month/day',
       texts: ['2021/07/01', '2021/07/03'],
     },
+    {
+      f: withExactly,
+      param: 'year/month/day',
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withExactly,
+      param: 'year/month/',
+      texts: [],
+    },
+    {
+      f: withPrefix,
+      param: 'year/month',
+      texts: ['2021/08', '2021/07', '2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withSuffix,
+      param: '/day',
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withText,
+      param: '/day',
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withPrefix,
+      param: 'does-not-exist',
+      texts: [],
+    },
+    {
+      f: withSuffix,
+      param: 'does-not-exist',
+      texts: [],
+    },
+    {
+      f: withText,
+      param: 'does-not-exist',
+      texts: [],
+    },
+    {
+      f: withExactly,
+      param: 'does-not-exist',
+      texts: [],
+    },
   ])('filter with %j', ({ f, param, texts }) => {
     const actual = filterScratchBook(f(param))(sb);
     expect(actual.notes).toHaveLength(texts.length);
@@ -171,6 +218,31 @@ describe('filter scratch book', () => {
       f: withAnyText,
       params: ['year/month/day'],
       texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withAnyExactly,
+      params: ['year/month/day'],
+      texts: ['2021/07/01', '2021/07/03'],
+    },
+    {
+      f: withAnyPrefix,
+      params: ['does not exists'],
+      texts: [],
+    },
+    {
+      f: withAnySuffix,
+      params: ['does not exists'],
+      texts: [],
+    },
+    {
+      f: withAnyText,
+      params: ['does not exists'],
+      texts: [],
+    },
+    {
+      f: withAnyExactly,
+      params: ['does not exists'],
+      texts: [],
     },
   ])('filter with %j', ({ f, params, texts }) => {
     const actual = filterScratchBook(f(params))(sb);

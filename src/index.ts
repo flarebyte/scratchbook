@@ -76,6 +76,8 @@ const withSuffix = (suffix: string) => (id: string) => id.endsWith(suffix);
 
 const withText = (text: string) => (id: string) => id.includes(text);
 
+const withExactly = (text: string) => (id: string) => id === text;
+
 const withAnyPrefix = (prefixList: string[]) => (id: string) =>
   prefixList.map(prefix => id.startsWith(prefix)).some(b => b);
 
@@ -84,6 +86,9 @@ const withAnySuffix = (suffixList: string[]) => (id: string) =>
 
 const withAnyText = (textList: string[]) => (id: string) =>
   textList.map(text => id.includes(text)).some(b => b);
+
+const withAnyExactly = (textList: string[]) => (id: string) =>
+  textList.map(text => id === text).some(b => b);
 
 export {
   ScratchNote,
@@ -99,8 +104,10 @@ export {
   withPrefix,
   withSuffix,
   withText,
+  withExactly,
   withAnyPrefix,
   withAnySuffix,
   withAnyText,
+  withAnyExactly,
   compose,
 };
