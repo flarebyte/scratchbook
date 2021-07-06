@@ -132,8 +132,16 @@ describe('filter scratch book', () => {
   const sc2021_08 = createScratchNote('year/month', '2021/08');
   const sc2021_07_01 = createScratchNote('year/month/day', '2021/07/01');
   const sc2021_07_03 = createScratchNote('year/month/day', '2021/07/03');
+  const sc12_2021 = createScratchNote('week/year', '12/2021');
   const sb: ScratchBook = {
-    notes: [sc2021, sc2021_08, sc2021_07, sc2021_07_01, sc2021_07_03],
+    notes: [
+      sc2021,
+      sc2021_08,
+      sc2021_07,
+      sc2021_07_01,
+      sc2021_07_03,
+      sc12_2021,
+    ],
   };
 
   it.each([
@@ -243,6 +251,26 @@ describe('filter scratch book', () => {
       f: withAnyExactly,
       params: ['does not exists'],
       texts: [],
+    },
+    {
+      f: withAnyPrefix,
+      params: ['year/month/day', 'week/year'],
+      texts: ['2021/07/01', '2021/07/03', '12/2021'],
+    },
+    {
+      f: withAnySuffix,
+      params: ['year/month/day', 'week/year'],
+      texts: ['2021/07/01', '2021/07/03', '12/2021'],
+    },
+    {
+      f: withAnyText,
+      params: ['year/month/day', 'week/year'],
+      texts: ['2021/07/01', '2021/07/03', '12/2021'],
+    },
+    {
+      f: withAnyExactly,
+      params: ['year/month/day', 'week/year'],
+      texts: ['2021/07/01', '2021/07/03', '12/2021'],
     },
   ])('filter with %j', ({ f, params, texts }) => {
     const actual = filterScratchBook(f(params))(sb);
