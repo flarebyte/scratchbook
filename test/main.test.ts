@@ -13,6 +13,9 @@ import {
   withAnySuffix,
   withAnyText,
   withAnyExactly,
+  and,
+  or,
+  not,
 } from '../src';
 
 const slash = compose('/');
@@ -276,5 +279,24 @@ describe('filter scratch book', () => {
     const actual = filterScratchBook(f(params))(sb);
     expect(actual.notes).toHaveLength(texts.length);
     expect(getTexts(actual)).toEqual(texts);
+  });
+
+  it('supports and filter', () => {
+    const query = and([withPrefix('year'), withSuffix('day')]);
+    const actual = filterScratchBook(query)(sb);
+    expect(actual.notes).toHaveLength(2);
+    expect(getTexts(actual)).toEqual(['2021/07/01', '2021/07/03']);
+  });
+  it('supports or filter', () => {
+    const query = or([withExactly('year/month/day'), withSuffix('week/year')]);
+    const actual = filterScratchBook(query)(sb);
+    expect(actual.notes).toHaveLength(3);
+    expect(getTexts(actual)).toEqual(['2021/07/01', '2021/07/03', '12/2021']);
+  });
+  it('supports not filter', () => {
+    const query = not(withPrefix('year'));
+    const actual = filterScratchBook(query)(sb);
+    expect(actual.notes).toHaveLength(1);
+    expect(getTexts(actual)).toEqual(['12/2021']);
   });
 });
