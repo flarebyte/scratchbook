@@ -299,4 +299,14 @@ describe('filter scratch book', () => {
     expect(actual.notes).toHaveLength(1);
     expect(getTexts(actual)).toEqual(['12/2021']);
   });
+
+  it('supports complex filter', () => {
+    const query = or([
+      not(withPrefix('year')),
+      and([withPrefix('year'), withSuffix('day')]),
+    ]);
+    const actual = filterScratchBook(query)(sb);
+    expect(actual.notes).toHaveLength(3);
+    expect(getTexts(actual)).toEqual(['2021/07/01', '2021/07/03', '12/2021']);
+  });
 });

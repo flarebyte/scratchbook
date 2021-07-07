@@ -20,7 +20,8 @@
     "fix": "tsdx lint --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "docs": "typedoc"
   },
   "peerDependencies": {},
   "husky": {
@@ -53,6 +54,7 @@
     "size-limit": "^5.0.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.0",
+    "typedoc": "^0.21.2",
     "typescript": "^4.3.5"
   }
 }
