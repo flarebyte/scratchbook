@@ -28,6 +28,14 @@ yarn size
 yarn docs
 ```
 
+You can also simulate [Github actions](https://docs.github.com/en/actions) locally with [act](https://github.com/nektos/act). You will need to setup `.actrc` with the node.js docker image `-P ubuntu-latest=node:12-buster`
+
+To run the pipeline:
+
+```
+act
+```
+
 ## Pull Request Process
 
 1. Make sure that an issue describing the intended code change exists and that this issue has been accepted.

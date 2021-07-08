@@ -1,9 +1,12 @@
 # Scratch Book
 
+![Build status](https://github.com/flarebyte/scratchbook/actions/workflows/main.yml/badge.svg)
+![Dependencies](https://status.david-dm.org/gh/flarebyte/scratchbook.svg)
+
 > Scratch Book is an annotation library written in Typescript that makes it easy to write documentation in a decentralized fashion.
 
 - **Typescript** can be used to write the documentation. Integrates perfectly with [ts-node](https://typestrong.org/ts-node/).
-- **No dependency** and lightweight.
+- **No dependency** and lightweight (less than 1KB).
 - **Advanced matchers** to query the notes.
 - **Simple model** for the notes that requires very little learning curve while still offering a lot of flexibility.
 - **extensive tests coverage**.
