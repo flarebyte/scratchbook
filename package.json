@@ -1,6 +1,22 @@
 {
+  "name": "scratchbook",
+  "description": "Scratchbook is an annotation library written in Typescript that makes it easy to write documentation in a decentralized fashion",
+  "keywords": [
+    "annotations",
+    "typescript",
+    "documentation"
+  ],
+  "author": {
+    "name": "Olivier Huin",
+    "url": "https://github.com/olih"
+  },
   "version": "0.1.0",
   "license": "MIT",
+  "homepage": "https://github.com/flarebyte/scratchbook",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flarebyte/scratchbook.git"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -8,7 +24,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -16,12 +32,13 @@
     "test": "tsdx test",
     "test:cov": "tsdx test --coverage",
     "watch": "tsdx watch",
-    "lint": "tsdx lint",
-    "fix": "tsdx lint --fix",
+    "lint": "tsdx lint src test",
+    "fix": "tsdx lint src test --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "other:fix": "prettier --write *.md *.json .github/workflows/*.yml docs/assets/css/*.css"
   },
   "peerDependencies": {},
   "husky": {
@@ -35,17 +52,15 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "scratchbook",
-  "author": "Olivier Huin",
   "module": "dist/scratchbook.esm.js",
   "size-limit": [
     {
       "path": "dist/scratchbook.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "1 KB"
     },
     {
       "path": "dist/scratchbook.esm.js",
-      "limit": "10 KB"
+      "limit": "1 KB"
     }
   ],
   "devDependencies": {
