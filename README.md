@@ -1,4 +1,5 @@
 # Scratch Book
+
 ![npm](https://img.shields.io/npm/v/scratchbook)
 ![Build status](https://github.com/flarebyte/scratchbook/actions/workflows/main.yml/badge.svg)
 
