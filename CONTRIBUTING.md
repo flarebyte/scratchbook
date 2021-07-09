@@ -37,3 +37,12 @@ act
 ## Pull Request Process
 
 1. Make sure that an issue describing the intended code change exists and that this issue has been accepted.
+
+
+## Publishing the library
+
+This would be done by the main maintainers of the project. Locally for now as updates are pretty infrequent.
+
+```
+yarn version
+```
