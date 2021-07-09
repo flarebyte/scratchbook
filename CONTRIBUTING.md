@@ -10,7 +10,7 @@ Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in
 
 ## Build the project locally
 
-The project mostly relies on the approach suggested by [tsdx](tsdx.md).
+The project mostly relies on the approach suggested by [ts-dx](TSDX.md).
 
 The following commands should get you started
 
@@ -23,9 +23,7 @@ yarn test
 Please keep an eye on test coverage, bundle size and documentation.
 
 ```
-yarn test:cov
-yarn size
-yarn docs
+yarn ready
 ```
 
 You can also simulate [Github actions](https://docs.github.com/en/actions) locally with [act](https://github.com/nektos/act). You will need to setup `.actrc` with the node.js docker image `-P ubuntu-latest=node:12-buster`
