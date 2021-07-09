@@ -38,7 +38,10 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "docs": "typedoc",
-    "other:fix": "prettier --write *.md *.json .github/workflows/*.yml docs/assets/css/*.css"
+    "fix:main": "prettier --write *.md *.json .github/workflows/*.yml",
+    "ready": "yarn fix;yarn fix:main;yarn lint;yarn test:cov;yarn build;yarn size;yarn docs",
+    "preversion": "yarn ready",
+    "postversion": "git push --tags && yarn publish . --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "peerDependencies": {},
   "husky": {
