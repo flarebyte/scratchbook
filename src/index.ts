@@ -89,8 +89,12 @@ const newScratchNote = (composer: IdComposer) => (
 ) => createScratchNote(composer(idParts), text, url);
 
 const sortedById = (a: ScratchNote, b: ScratchNote): number => {
-  if (a.id === b.id) return 0;
-  if (a.id > b.id) return 1;
+  if (a.id === b.id) {
+    return 0;
+  }
+  if (a.id > b.id) {
+    return 1;
+  }
   return -1;
 };
 

@@ -14,11 +14,8 @@ The project mostly relies on the approach suggested by [ts-dx](TSDX.md).
 
 The following commands should get you started
 
-```
-yarn install
-yarn test
-
-```
+    yarn install
+    yarn test
 
 Please keep an eye on test coverage, bundle size and documentation.
 
