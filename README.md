@@ -4,7 +4,6 @@
 ![Build status](https://github.com/flarebyte/scratchbook/actions/workflows/main.yml/badge.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e8bc221a695648aab31dfa5853d0add7)](https://www.codacy.com/gh/flarebyte/scratchbook/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=flarebyte/scratchbook&amp;utm_campaign=Badge_Grade)
 
-
 ![npm bundle size](https://img.shields.io/bundlephobia/min/scratchbook)
 ![Dependencies](https://status.david-dm.org/gh/flarebyte/scratchbook.svg)
 
