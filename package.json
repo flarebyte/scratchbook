@@ -38,6 +38,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "docs": "typedoc",
+    "docs:json": "typedoc --json docs.json",
     "fix:main": "prettier --write *.md *.json .github/workflows/*.yml",
     "ready": "yarn fix;yarn fix:main;yarn lint;yarn test:cov;yarn build;yarn size;yarn docs",
     "preversion": "yarn lint;yarn test:cov;yarn size;",
